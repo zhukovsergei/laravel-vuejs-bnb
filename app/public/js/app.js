@@ -5313,6 +5313,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5332,6 +5334,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return Math.ceil(this.bookables.length / this.columns);
+    }
+  },
+  methods: {
+    getItemsInRow: function getItemsInRow(row) {
+      return this.bookables.slice((row - 1) * this.columns, row * this.columns);
+    },
+    getPlaceHolderRows: function getPlaceHolderRows(row) {
+      return this.columns - this.getItemsInRow(row).length;
     }
   },
   created: function created() {
@@ -28270,20 +28280,44 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.loading ? _c("div", [_vm._v("\n        loading...\n    ")]) : _vm._e(),
-    _vm._v(" "),
-    _vm.bookables
-      ? _c(
+    _vm.loading
+      ? _c("div", [_vm._v("\n        loading...\n    ")])
+      : _c(
           "div",
-          _vm._l(_vm.bookables, function (bk, index) {
-            return _c("bookable-list-item", {
-              key: index,
-              attrs: { title: bk.title, content: bk.content, price: 500 },
-            })
+          _vm._l(_vm.rows, function (row) {
+            return _c(
+              "div",
+              { key: "row_" + row, staticClass: "row mb-4" },
+              [
+                _vm._l(_vm.getItemsInRow(row), function (bk, index) {
+                  return _c(
+                    "div",
+                    { key: "row_" + row + "_" + index, staticClass: "col" },
+                    [
+                      _c("bookable-list-item", {
+                        attrs: {
+                          title: bk.title,
+                          content: bk.content,
+                          price: 500,
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.getPlaceHolderRows(row), function (p) {
+                  return _c("div", {
+                    key: "placeholder_" + row + "_" + p,
+                    staticClass: "col",
+                  })
+                }),
+              ],
+              2
+            )
           }),
-          1
-        )
-      : _vm._e(),
+          0
+        ),
   ])
 }
 var staticRenderFns = []

@@ -3,13 +3,15 @@
         <div v-if="loading">
             loading...
         </div>
-        <div v-if="bookables">
-            <bookable-list-item
-                v-for="(bk, index) in bookables"
-                :key="index"
-                :title="bk.title"
-                :content="bk.content"
-                :price="500"></bookable-list-item>
+        <div v-else>
+            <div v-for="row in rows" :key="'row_' + row" class="row mb-4">
+                <div v-for="(bk, index) in getItemsInRow(row)"
+                     :key="'row_' + row + '_' + index" class="col">
+                    <bookable-list-item :title="bk.title" :content="bk.content" :price="500"></bookable-list-item>
+                </div>
+
+                <div v-for="p in getPlaceHolderRows(row)" :key="'placeholder_' + row + '_' + p" class="col"></div>
+            </div>
         </div>
 
     </div>
@@ -36,6 +38,14 @@ export default {
             }
             return Math.ceil(this.bookables.length / this.columns);
         }
+    },
+    methods: {
+        getItemsInRow(row) {
+            return this.bookables.slice((row - 1) * this.columns, row * this.columns);
+        },
+        getPlaceHolderRows(row) {
+            return this.columns - this.getItemsInRow(row).length;
+        },
     },
     created() {
         setTimeout(() => {
