@@ -7,7 +7,7 @@
             <div v-for="row in rows" :key="'row_' + row" class="row mb-4">
                 <div v-for="(bk, index) in getItemsInRow(row)"
                      :key="'row_' + row + '_' + index" class="col">
-                    <bookable-list-item :title="bk.title" :content="bk.content" :price="500"></bookable-list-item>
+                    <bookable-list-item :title="bk.title" :content="bk.description" :price="500"></bookable-list-item>
                 </div>
 
                 <div v-for="p in getPlaceHolderRows(row)" :key="'placeholder_' + row + '_' + p" class="col"></div>
@@ -48,39 +48,13 @@ export default {
         },
     },
     created() {
-        setTimeout(() => {
-            this.bookables = [
-                {
-                    title: 'Item 1',
-                    content: 'Descr 1',
-                },
-                {
-                    title: 'Item 2',
-                    content: 'Descr 2',
-                },
-                {
-                    title: 'Item 2',
-                    content: 'Descr 2',
-                },
-                {
-                    title: 'Item 2',
-                    content: 'Descr 2',
-                },
-                {
-                    title: 'Item 2',
-                    content: 'Descr 2',
-                },
-                {
-                    title: 'Item 2',
-                    content: 'Descr 2',
-                },
-                {
-                    title: 'Item 2',
-                    content: 'Descr 2',
-                },
-            ];
-            this.loading = false;
-        }, 1000);
+        axios.get('/api/bookables')
+            .then( response => {
+                this.bookables = response.data
+                this.loading = false;
+            });
+
+
     }
 }
 </script>

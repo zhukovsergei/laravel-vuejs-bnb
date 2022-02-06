@@ -5347,31 +5347,10 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    setTimeout(function () {
-      _this.bookables = [{
-        title: 'Item 1',
-        content: 'Descr 1'
-      }, {
-        title: 'Item 2',
-        content: 'Descr 2'
-      }, {
-        title: 'Item 2',
-        content: 'Descr 2'
-      }, {
-        title: 'Item 2',
-        content: 'Descr 2'
-      }, {
-        title: 'Item 2',
-        content: 'Descr 2'
-      }, {
-        title: 'Item 2',
-        content: 'Descr 2'
-      }, {
-        title: 'Item 2',
-        content: 'Descr 2'
-      }];
+    axios.get('/api/bookables').then(function (response) {
+      _this.bookables = response.data;
       _this.loading = false;
-    }, 1000);
+    });
   }
 });
 
@@ -28297,7 +28276,7 @@ var render = function () {
                       _c("bookable-list-item", {
                         attrs: {
                           title: bk.title,
-                          content: bk.content,
+                          content: bk.description,
                           price: 500,
                         },
                       }),
