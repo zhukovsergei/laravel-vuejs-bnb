@@ -6,7 +6,7 @@
         <div v-else>
             <div v-for="row in rows" :key="'row_' + row" class="row mb-4">
                 <div v-for="(bk, index) in getItemsInRow(row)"
-                     :key="'row_' + row + '_' + index" class="col">
+                     :key="'row_' + row + '_' + index" class="col d-flex align-items-stretch">
                     <bookable-list-item :title="bk.title" :content="bk.description" :price="500"></bookable-list-item>
                 </div>
 

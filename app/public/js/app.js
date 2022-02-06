@@ -5272,8 +5272,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     'title': String,
@@ -28217,20 +28215,18 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [
-          _vm._v(" " + _vm._s(_vm.title)),
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v(" " + _vm._s(_vm.content) + " "),
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-          _vm._v("Go somewhere"),
-        ]),
+  return _c("div", { staticClass: "card w-100" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [
+        _vm._v(" " + _vm._s(_vm.title)),
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [
+        _vm._v(" " + _vm._s(_vm.content) + " "),
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
+        _vm._v("Go somewhere"),
       ]),
     ]),
   ])
@@ -28271,7 +28267,10 @@ var render = function () {
                 _vm._l(_vm.getItemsInRow(row), function (bk, index) {
                   return _c(
                     "div",
-                    { key: "row_" + row + "_" + index, staticClass: "col" },
+                    {
+                      key: "row_" + row + "_" + index,
+                      staticClass: "col d-flex align-items-stretch",
+                    },
                     [
                       _c("bookable-list-item", {
                         attrs: {
