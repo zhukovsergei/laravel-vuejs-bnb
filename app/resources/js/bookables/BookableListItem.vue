@@ -1,9 +1,9 @@
 <template>
     <div class="card w-100">
         <div class="card-body">
-            <h5 class="card-title"> {{ title}}</h5>
-            <p class="card-text"> {{ content }} </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <router-link :to="{name:'bookable', params: { id: id} }"><h5 class="card-title"> {{ title}}</h5></router-link>
+            <p class="card-text"> {{ description }} </p>
+
         </div>
     </div>
 </template>
@@ -11,9 +11,9 @@
 <script>
     export default {
         props: {
-            'title': String,
-            'content': String,
-            'price': Number,
+            id: Number,
+            title: String,
+            description: String,
         },
 
     }
