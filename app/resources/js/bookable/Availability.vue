@@ -5,15 +5,15 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="from" class="col-form-label">From</label>
-                <input v-model="from" type="text" class="form-control" id="from">
+                <input v-model="from" @keyup.enter="check" type="text" class="form-control" id="from">
             </div>
             <div class="col-md-6">
                 <label for="to" class="col-form-label">To</label>
-                <input v-model="to" type="text" class="form-control" id="to">
+                <input v-model="to" @keyup.enter="check" type="text" class="form-control" id="to">
             </div>
         </div>
         <div class="d-grid gap-1 mt-2">
-            <button class="btn btn-secondary ">Check</button>
+            <button class="btn btn-secondary" @click="check">Check</button>
         </div>
     </div>
 </template>
@@ -28,6 +28,11 @@ export default {
     },
     created() {
 
+    },
+    methods: {
+        check() {
+            alert('1');
+        }
     },
 }
 </script>
