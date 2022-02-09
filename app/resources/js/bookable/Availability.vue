@@ -5,15 +5,32 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="from" class="col-form-label">From</label>
-                <input v-model="from" @keyup.enter="check" type="text" class="form-control" id="from">
+                <input
+                    v-model="from"
+                    @keyup.enter="check"
+                    :class="{'is-invalid': this.errorFor('from')}"
+                    type="text" class="form-control" id="from">
+                <div v-for="(error, index) in this.errorFor('from')" :key="'from_' + index" class="invalid-feedback">
+                    {{error}}
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="to" class="col-form-label">To</label>
-                <input v-model="to" @keyup.enter="check" type="text" class="form-control" id="to">
+                <input
+                    v-model="to"
+                    @keyup.enter="check"
+                    :class="{'is-invalid': this.errorFor('to')}"
+                    type="text" class="form-control" id="to">
+                <div v-for="(error, index) in this.errorFor('to')" :key="'to_' + index" class="invalid-feedback">
+                    {{error}}
+                </div>
             </div>
-        </div>
-        <div class="d-grid gap-1 mt-2">
-            <button class="btn btn-secondary" @click="check">Check</button>
+            <div class="d-grid gap-1 mt-2">
+                <button
+                    @click="check"
+                    :disabled="loading"
+                    class="btn btn-secondary">Check</button>
+            </div>
         </div>
     </div>
 </template>
@@ -24,6 +41,9 @@ export default {
         return {
             from: null,
             to: null,
+            loading: false,
+            status: null,
+            errors: null,
         }
     },
     created() {
@@ -31,8 +51,33 @@ export default {
     },
     methods: {
         check() {
-            alert('1');
-        }
+            this.loading = true;
+            this.errors = null;
+            axios.get(`/api/bookables/${this.$route.params.id}/availability?from=${this.from}&to=${this.to}`)
+            .then(response => {
+                this.status = response.status;
+            }).catch(error => {
+                if(422 === error.response.status) {
+                    this.errors = error.response.data.errors;
+                }
+                this.status = error.response.status;
+
+            }).then(() => this.loading = false);
+        },
+        errorFor(field) {
+            return this.hasErrors && this.errors[field]? this.errors[field] : null;
+        },
+    },
+    computed: {
+        hasErrors() {
+            return 422 === this.status && this.errors !== null;
+        },
+        hasAvailability() {
+            return 200 === this.status;
+        },
+        noAvailability() {
+            return 400 === this.status;
+        },
     },
 }
 </script>
