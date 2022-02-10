@@ -1,0 +1,29 @@
+<template>
+    <div class="d-flex">
+        <i class="fas fa-star" v-for="star in fullStars" :key="'full_' + star"></i>
+        <i class="fas fa-star-half-alt" v-for="star in halfStar" :key="'half_' + star"></i>
+        <i class="far fa-star" v-for="star in emptyStars" :key="'empty_' + star"></i>
+    </div>
+</template>
+
+<script>
+export default {
+    props: {
+        rating: Number,
+    },
+    computed: {
+        halfStar() {
+            const fraction = Math.round((this.rating - Math.floor(this.rating)*100));
+            return fraction > 0 && fraction < 50;
+        },
+        fullStars() {
+            return Math.round(this.rating);
+        },
+        emptyStars() {
+            return 5 - Math.ceil(this.rating);
+        },
+    },
+    created() {
+    }
+}
+</script>
