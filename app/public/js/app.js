@@ -5611,18 +5611,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       review: {
         rating: 5,
         content: null
-      }
+      },
+      existingReview: null,
+      loading: false
     };
   },
   methods: {
     onRatingChanged: function onRatingChanged(rating) {
       this.rating = rating;
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.loading = true;
+    axios.get("/api/reviews/".concat(this.$route.params.id)).then(function (response) {
+      return _this.existingReview = response.data.data;
+    })["catch"](function (error) {}).then(function () {
+      _this.loading = false;
+    });
+  },
+  computed: {
+    alreadyReviewed: function alreadyReviewed() {
+      return this.existingReview !== null;
     }
   }
 });
@@ -51111,56 +51139,68 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "mb-3" },
-      [
-        _c("label", { staticClass: "form-label" }, [
-          _vm._v("Select the star rating"),
+    _vm.loading
+      ? _c("div", [_vm._v("\n        Loading...\n    ")])
+      : _c("div", [
+          _vm.alreadyReviewed
+            ? _c("div", [_c("h3", [_vm._v("Already reviewed")])])
+            : _c("div", [
+                _c(
+                  "div",
+                  { staticClass: "mb-3" },
+                  [
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Select the star rating"),
+                    ]),
+                    _vm._v(" "),
+                    _c("star-rating", {
+                      model: {
+                        value: _vm.review.rating,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.review, "rating", $$v)
+                        },
+                        expression: "review.rating",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "mb-3" }, [
+                  _c(
+                    "label",
+                    { staticClass: "form-label", attrs: { for: "content" } },
+                    [_vm._v("Message")]
+                  ),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.review.content,
+                        expression: "review.content",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "content", rows: "5" },
+                    domProps: { value: _vm.review.content },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.review, "content", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn btn-primary" }, [
+                  _vm._v("Send"),
+                ]),
+              ]),
         ]),
-        _vm._v(" "),
-        _c("star-rating", {
-          model: {
-            value: _vm.review.rating,
-            callback: function ($$v) {
-              _vm.$set(_vm.review, "rating", $$v)
-            },
-            expression: "review.rating",
-          },
-        }),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "mb-3" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "content" } }, [
-        _vm._v("Message"),
-      ]),
-      _vm._v(" "),
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.review.content,
-            expression: "review.content",
-          },
-        ],
-        staticClass: "form-control",
-        attrs: { id: "content", rows: "5" },
-        domProps: { value: _vm.review.content },
-        on: {
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.review, "content", $event.target.value)
-          },
-        },
-      }),
-    ]),
-    _vm._v(" "),
-    _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Send")]),
   ])
 }
 var staticRenderFns = []
