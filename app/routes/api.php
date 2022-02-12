@@ -27,7 +27,7 @@ Route::get('bookables/{bookable}/reviews', \App\Http\Controllers\Api\BookableRev
 Route::get('bookables/{bookable}/reviews', \App\Http\Controllers\Api\BookableReviewController::class)
     ->name('bookables.reviews.index');
 
-Route::apiResource('reviews', \App\Http\Controllers\Api\ReviewController::class)->only(['show']);
+Route::apiResource('reviews', \App\Http\Controllers\Api\ReviewController::class)->only(['show', 'store']);
 
 Route::get('booking-by-review/{reviewKey}', \App\Http\Controllers\Api\BookingByReviewController::class)
     ->name('booking.by-review.show');
