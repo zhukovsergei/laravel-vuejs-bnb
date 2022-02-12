@@ -41,9 +41,7 @@
                             <textarea
                                 :class="{'is-invalid': errorFor('content')}"
                                 v-model="review.content" class="form-control" id="content" rows="5"></textarea>
-                            <div v-for="(error, index) in errorFor('content')" :key="'content_' + index" class="invalid-feedback">
-                                {{error}}
-                            </div>
+                            <v-errors :errors="errorFor('content')"></v-errors>
                         </div>
                         <button
                             @click.prevent="submit"

@@ -14,9 +14,8 @@
                     @keyup.enter="check"
                     :class="{'is-invalid': this.errorFor('from')}"
                     type="text" class="form-control" id="from">
-                <div v-for="(error, index) in this.errorFor('from')" :key="'from_' + index" class="invalid-feedback">
-                    {{error}}
-                </div>
+                <v-errors :errors="errorFor('from')"></v-errors>
+
             </div>
             <div class="col-md-6">
                 <label for="to" class="col-form-label">To</label>
@@ -25,9 +24,7 @@
                     @keyup.enter="check"
                     :class="{'is-invalid': this.errorFor('to')}"
                     type="text" class="form-control" id="to">
-                <div v-for="(error, index) in this.errorFor('to')" :key="'to_' + index" class="invalid-feedback">
-                    {{error}}
-                </div>
+                <v-errors :errors="errorFor('to')"></v-errors>
             </div>
             <div class="d-grid gap-1 mt-2">
                 <button
