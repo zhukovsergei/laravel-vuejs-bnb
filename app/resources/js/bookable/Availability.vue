@@ -2,8 +2,10 @@
     <div>
         <h6 class="text-uppercase text-secondary fw-bolder ">
             Check Availability
-            <span v-if="noAvailability" class="text-danger">(no available)</span>
-            <span v-if="hasAvailability" class="success">(available)</span>
+            <transition name="fade">
+                <span v-if="noAvailability" class="text-danger">(no available)</span>
+                <span v-if="hasAvailability" class="success">(available)</span>
+            </transition>
         </h6>
 
         <div class="row g-3">
@@ -30,7 +32,9 @@
                 <button
                     @click="check"
                     :disabled="loading"
-                    class="btn btn-secondary">Check</button>
+                    class="btn btn-secondary">
+                    <loading :isLoading="loading">Check</loading>
+                </button>
             </div>
         </div>
     </div>

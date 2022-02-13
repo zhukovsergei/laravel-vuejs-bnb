@@ -18339,3 +18339,19 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.v-enter-active, .v-leave-active {
+  transition: opacity 4s;
+}
+
+.v-enter, .v-leave-to {
+  opacity: 0;
+}

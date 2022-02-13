@@ -10,3 +10,19 @@
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
+
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+.v-enter-active, .v-leave-active {
+    transition: opacity 4s;
+}
+.v-enter, .v-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}

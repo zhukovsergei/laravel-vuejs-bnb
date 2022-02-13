@@ -10,6 +10,7 @@ import moment from "moment";
 import StarRating from "./shared/components/StarRating";
 import FatalError from "./shared/components/FatalError";
 import Success from "./shared/components/Success";
+import Loading from "./shared/components/Loading";
 import ValidationErrors from "./shared/components/ValidationErrors";
 
 window.Vue = require('vue').default;
@@ -20,6 +21,7 @@ Vue.filter('fromNow', value => moment(value).fromNow());
 Vue.component('star-rating', StarRating);
 Vue.component('fatal-error', FatalError);
 Vue.component('success', Success);
+Vue.component('loading', Loading);
 Vue.component('v-errors', ValidationErrors);
 
 const store = new Vuex.Store(storeDefinition);
