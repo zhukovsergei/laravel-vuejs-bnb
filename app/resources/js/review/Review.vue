@@ -78,30 +78,27 @@ export default {
           sending: false,
       }
     },
-    created() {
+  async created() {
         this.review.id = this.$route.params.id;
         this.loading = true;
 
-        axios
-            .get(`/api/reviews/${this.review.id}`)
-            .then(response => {
-                this.existingReview = response.data.data
-            })
-            .catch(error => {
-                if(is404(error)) {
-                    return axios
-                        .get(`/api/booking-by-review/${this.review.id}`)
-                        .then(response => {
-                        this.booking = response.data.data;
-                    })
-                        .catch(err => {
-                        this.error = !is404(err);
-                    });
+
+        try {
+            this.existingReview = (await axios.get(`/api/reviews/${this.review.id}`)).data.data;
+        } catch (err){
+            if(is404(err)) {
+                try {
+                    this.booking = (await axios.get(`/api/booking-by-review/${this.review.id}`)).data.data;
+                } catch (err) {
+                    this.error = !is404(err);
                 }
-            })
-            .then(() => {
-                this.loading = false;
-            });
+            } else {
+                this.error = true;
+            }
+
+        }
+
+      this.loading = false;
     },
     computed: {
         alreadyReviewed() {
