@@ -4,6 +4,7 @@ require('./bootstrap');
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import router from "./routes"
+import storeDefinition from "./store"
 import Index from "./index.vue";
 import moment from "moment";
 import StarRating from "./shared/components/StarRating";
@@ -21,10 +22,16 @@ Vue.component('fatal-error', FatalError);
 Vue.component('success', Success);
 Vue.component('v-errors', ValidationErrors);
 
+const store = new Vuex.Store(storeDefinition);
+
 const app = new Vue({
     el: '#app',
     router,
+    store,
     components: {
         'index': Index
+    },
+    beforeCreate() {
+        this.$store.dispatch('loadStoredState');
     }
 });

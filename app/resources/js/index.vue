@@ -8,3 +8,35 @@
         </div>
     </div>
 </template>
+
+
+<script>
+import { mapState } from "vuex";
+export default {
+    data() {
+        return {
+            lastSearch: this.$store.state.lastSearch
+        };
+    },
+    computed: {
+        ...mapState({
+            lastSearchComputed: "lastSearch",
+            // isLoggedIn: "isLoggedIn"
+        }),
+/*        ...mapGetters({
+            itemsInBasket: "itemsInBasket"
+        }),*/
+
+    },
+    methods: {
+/*        async logout() {
+            try {
+                axios.post("/logout");
+                this.$store.dispatch("logout");
+            } catch (error) {
+                this.$store.dispatch("logout");
+            }
+        }*/
+    }
+};
+</script>
